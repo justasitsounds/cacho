@@ -27,6 +27,56 @@ iii) generate a human-friendly reddit-style ID: LonelyBlackPotatoSpiper
 iv) allow geolocation on the devices and group users that are at the same or close location
 v) allow the first user to create the room name
 
+//
+Client login
+ Start or Join
 
+ Start
+    choose gamename
+    wait for players...
 
+ Join
+    list local games
+    choose game
+    wait for player...
+
+2. startgame
+players sorted randomly
+everyone rolls
+//first player then makes bid
+currentBid = startRound(firstplayer)
+
+startRound(
+    if anyplayer.dieCount() == 1{
+        lastRound = true
+        scoringStrategy = scoringFunc(lastRound) func(alldice, currentbid)
+        biddingRules = biddingRules(lastround) func(currentPlayer)
+    }
+
+    for each player{
+        if not first player{
+            //userAction:challenge or bid
+            if challenge{
+                //dudo or calza
+                if dudo{
+                    if scoringStrategy(alldice.score < currentbid.score){
+                        previousPlayer.LoseADie()
+                        startRound(currentPlayer)
+                    }else{
+                        currentPlayer.LoseADie()
+                        startRound(currentPlayer)
+                    }
+                }else{
+                    if calzo && scoringStrategy({alldice.score == curentbid.score}){
+                        currentPlayer.GainADie()
+                        startRound(currentPlayer)
+                    }
+                }
+            }else{
+                //bid
+                currentBid = biddingRules.IncreaseBid(currentPlayer,currentBid)
+            }
+        }
+    }
+)
 
