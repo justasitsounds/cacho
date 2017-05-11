@@ -2,6 +2,7 @@ package engine
 
 import (
 	"math/rand"
+	"sort"
 	"time"
 )
 
@@ -26,6 +27,11 @@ func (d *Dice) Roll() {
 	for i, _ := range d.dice {
 		d.dice[i] = r.Intn(5) + 1
 	}
+}
+
+func (d *Dice) Score() []int {
+	sort.Sort(sort.Reverse(sort.IntSlice(d.dice)))
+	return d.dice
 }
 
 type Player struct {
