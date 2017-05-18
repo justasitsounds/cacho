@@ -28,4 +28,5 @@ func main() {
 		playerNames[i] = strconv.Itoa(i)
 	}
 	var g = game.New(playerNames)
+
 }
