@@ -14,6 +14,7 @@ func setDice(setdice []int) *Dice {
 		dice: setdice,
 	}
 }
+
 func TestDice(t *testing.T) {
 	d := deterministicDice(23)
 
@@ -30,9 +31,17 @@ func TestScoreDice(t *testing.T) {
 		expectedScore []int
 	}{
 		{[]int{1, 3, 4, 3, 1}, []int{3, 3, 3, 3}},
+		{[]int{2, 3, 4, 5, 1}, []int{5, 5}},
+		{[]int{2, 2, 4, 2, 1}, []int{2, 2, 2, 2}},
+		{[]int{6, 2, 4, 3, 5}, []int{6}},
+		{[]int{5, 3, 5}, []int{5, 5}},
+		{[]int{3}, []int{3}},
+		{[]int{6, 6, 5, 5, 1}, []int{6, 6, 6}},
+		{[]int{6, 6, 6, 5, 1}, []int{6, 6, 6, 6}},
+		{[]int{2, 2, 6, 5, 1}, []int{2, 2, 2}},
+		{[]int{2, 2, 5}, []int{2, 2}},
 	}
 
-	// [4,3,3,1,1] == [3,3,3,3] (1's count as wild)
 	for _, tt := range diceTests {
 		actual := setDice(tt.setDice).Score()
 		if len(actual) != len(tt.expectedScore) {
