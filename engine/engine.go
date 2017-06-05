@@ -25,7 +25,7 @@ func (d *Dice) SetSeed(seed int64) {
 	d.randSeed = seed
 }
 
-// Roll makes them bones roll
+// Roll dem bones
 func (d *Dice) Roll() {
 	r := rand.New(rand.NewSource(d.randSeed))
 	for i := range d.dice {
@@ -36,11 +36,30 @@ func (d *Dice) Roll() {
 //Score the Dice
 func (d *Dice) Score() []int {
 	sort.Sort(sort.Reverse(sort.IntSlice(d.dice)))
-	return d.dice
+	var prevSlots []int
+	for i := 0; i < len(d.dice); i = i + 1 {
+		var slots []int
+		var val = d.dice[i] //4
+		for j := 0; j < d.Count(val); j = j + 1 {
+			slots = append(slots, val)
+		}
+		if len(slots) > len(prevSlots) {
+			prevSlots = slots
+		}
+	}
+	return prevSlots
 }
 
 //Player No prizes
 type Player struct {
-	dice Dice
+	dice *Dice
 	name string
+}
+
+//NewPlayer returns a new Player with initialised Dice
+func NewPlayer(name string) *Player {
+	return &Player{
+		name: name,
+		dice: NewDice(5),
+	}
 }
